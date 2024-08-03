@@ -55,4 +55,13 @@ Setup Process
      dispatch(addTodo(input))
 
 
+    5. Need to wrap our app into Provider
+    ```
+    import { Provider } from "react-redux";
+    import { store } from "./app/store.js";
+     <Provider store={store}>
+      <App />
+    </Provider>
+    ```
+
   
