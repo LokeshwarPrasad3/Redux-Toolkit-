@@ -1,0 +1,58 @@
+# Redux-Toolkit : state is preserved
+Redux-Toolkit is a popular library for managing state in React applications. It provides a set of tools
+and utilities to help you manage your application's state in a predictable and scalable way.
+
+There two library 
+  1. @redux/toolkit 
+    - library 
+  2. react-redux sdsdsdsdsd sdsd dsds
+    - redux implementation for react
+
+Setup Process 
+  1. Create a Redux store (inside src/app/store.js)
+    ```
+    import { configureStore } from "@reduxjs/toolkit";
+    import todoReducer from "../features/todo/todoSlice"
+    export const store = configureStore({
+        reducer: todoReducer
+    });
+    ```
+  2. Create reducer by craeteSlice functionality (inside src/features/todo/todoSlice.js) naming convention
+    ```
+    import { createSlice, nanoid } from "@reduxjs/toolkit";
+    const initialState = {
+        todos: [{ id: 1, text: "Hello World" }]
+    }
+    // create slice ( reducer is functionality)
+    export const todoSlice = createSlice({
+        name: 'todo',
+        initialState,
+        reducers: { // properties and functions
+            addTodo: (state, action) => {
+                // get todo from user
+                const todo = {
+                    id: nanoid(),
+                    text: action.payload
+                };
+                state.todos.push(todo);
+            },
+            removeTodo: (state, action) => {
+                state.todos = state.todos.filter((todo) => todo.id !== action.payload)
+            },
+            editTodo: (state, action) => {
+                state.todos.map((todo) => {
+                    if (todo.id === action.payload.id) {
+                        return { ...todo, text: action.payload.text }
+                    }
+                    return todo;
+                })
+            }
+        }
+    })
+    ```
+    3. Now use useSelector and useDispatch from "react-redux"
+     const dispatch = useDispatch(); // dispatch is function that call reducer and then store on store
+     dispatch(addTodo(input))
+
+
+  
